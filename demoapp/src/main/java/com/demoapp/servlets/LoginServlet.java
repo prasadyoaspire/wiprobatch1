@@ -17,11 +17,11 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 			
 		//1. get request parameters		
-		String uname = request.getParameter("uname");
-		String pwd = request.getParameter("upwd");
+		String uname = req.getParameter("uname");
+		String pwd = req.getParameter("upwd");
 		
 		//2. if password is 1234 then print "Hello <username>" else print "Invalid password"
 		

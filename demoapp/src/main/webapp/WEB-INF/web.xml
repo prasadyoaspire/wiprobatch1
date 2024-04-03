@@ -49,4 +49,24 @@
     <servlet-name>InsertProductServlet</servlet-name>
     <url-pattern>/InsertProductServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FetchAllProducts</display-name>
+    <servlet-name>FetchAllProducts</servlet-name>
+    <servlet-class>com.demoapp.servlets.FetchAllProducts</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FetchAllProducts</servlet-name>
+    <url-pattern>/FetchAllProducts</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchProductServlet</display-name>
+    <servlet-name>SearchProductServlet</servlet-name>
+    <servlet-class>com.demoapp.servlets.SearchProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchProductServlet</servlet-name>
+    <url-pattern>/SearchProductServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

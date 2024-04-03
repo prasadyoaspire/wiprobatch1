@@ -7,7 +7,7 @@ public class Product {
 	private int productId;
 	private String productName;
 	private double productPrice;
-	private LocalDate mfd;
+	private LocalDate mfd;	
 	private String category;
 	
 	public int getProductId() {
