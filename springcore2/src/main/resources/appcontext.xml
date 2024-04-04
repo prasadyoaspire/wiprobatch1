@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd">
+		
+	<!-- To enable annotations  -->
+	<context:annotation-config/>
+
+	<bean id="book1" class="com.abc.springcore2.bean.Book" >
+		<property name="bookId" value="100" />
+		<property name="bookName" value="Java In Action" />
+		<property name="bookPrice" value="700" />
+		<!-- <property name="bookAuthor" ref="author2"/> -->
+	</bean>
+
+	<bean id="author2" class="com.abc.springcore2.bean.Author">
+		<property name="authorId" value="20" />
+		<property name="authorName" value="Krish" />
+		<property name="authorEmail" value="krish@tmail.com" />
+	</bean>	
+	
+	<!-- <bean id="author1" class="com.abc.springcore2.bean.Author">
+		<property name="authorId" value="10" />
+		<property name="authorName" value="Ram" />
+		<property name="authorEmail" value="ram@tmail.com" />
+	</bean>	 -->
+	
+
+</beans>		
