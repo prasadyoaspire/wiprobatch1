@@ -7,6 +7,10 @@
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd">
 		
+	<bean id="hBean" class="com.abc.springcore2.bean.HelloBean">
+		<property name="msg" value="Hello How r u?"/>
+	</bean>
+		
 	<!-- To enable annotations  -->
 	<context:annotation-config/>
 
