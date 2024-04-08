@@ -8,6 +8,9 @@
     <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
     <property name="hibernate.connection.username">wipro</property>
     <property name="hibernate.connection.password">wipro123</property>
+    
+    <property name="show_sql">true</property>    
+    <property name="hbm2ddl.auto">update</property>
 
     <mapping class="com.abc.hibernatedemo.entity.Product"></mapping>
   </session-factory>
