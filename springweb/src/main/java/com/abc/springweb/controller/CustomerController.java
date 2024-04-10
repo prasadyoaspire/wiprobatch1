@@ -2,12 +2,15 @@ package com.abc.springweb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.abc.springweb.model.Customer;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class CustomerController {
@@ -19,8 +22,10 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = "/register", method=RequestMethod.POST)
-	public String registerCustomer(@ModelAttribute("mycustomer") Customer customer,Model model) {
-		
+	public String registerCustomer(@Valid @ModelAttribute("mycustomer") Customer customer, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			return "customerform";
+		}
 		String msg = "Registration Success";
 		model.addAttribute("msg", msg);
 		

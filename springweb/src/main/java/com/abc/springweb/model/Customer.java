@@ -1,11 +1,24 @@
 package com.abc.springweb.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class Customer {
 
 	private int customerId;
+	
+	@NotNull
+	@Size(min=5,max=15, message = "Please enter valid FirstName")
 	private String firstName;
-	private String lastName;
+	
+	private String lastName;	
+	
+	@Positive(message ="Age must be a positive number")
 	private int age;
+	
+	@Email(message = "Email is not valid")
 	private String email;
 	
 	public int getCustomerId() {

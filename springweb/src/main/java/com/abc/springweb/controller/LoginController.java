@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 	//@RequestMapping("/loginform")
+	
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
 	public String getLoginForm() {
 		return "login-form";
