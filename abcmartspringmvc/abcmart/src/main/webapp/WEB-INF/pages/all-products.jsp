@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%-- <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> --%>
-<%@ page import="java.util.List,com.abc.abcmart.entity.Product"%>
+<%@taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,17 +13,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div class="container">
-    
+    <div class="container">    
   
 	<h3 style="text-align: center; color: blue;">All Products</h3>
 	
-	<%-- <c:forEach var = "p" items="${allProducts }">
-
-	<p>${p.productId } ${p.productName } ${p.productPrice } ${p.mfd } ${p.category }</p>
-
-</c:forEach> --%>
-
 	<table class="table">
 
 		<thead class="thead-dark">
@@ -36,19 +28,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%
-   		List<Product> products = (List<Product>)request.getAttribute("allProducts");
-   		for(Product p: products) {
-	%>
+			<c:forEach var = "p" items="${allProducts }">
 			<tr>
-				<td><%= p.getProductId()%></td>
-				<td><%= p.getProductName()%></td>
-				<td><%= p.getProductPrice()%></td>
-				<td><a href="get?pid=<%= p.getProductId() %>">View</a></td>
+				<td>${p.productId }</td>
+				<td>${p.productName }</td>
+				<td>${p.productPrice }</td>
+				<td><a href="get?pid=${p.productId }">View</a></td>
 			</tr>
-
+			</c:forEach> 
 		</tbody>
-		<% } %>
+		
 	</table>
 	
 </div>
