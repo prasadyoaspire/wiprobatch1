@@ -21,12 +21,14 @@ public class ProductServiceImpl implements ProductService {
 		productDao.save(product);		
 	}
 
+	@Transactional
 	@Override
 	public Product getProductDetails(int productId) {
 		Product product = productDao.findById(productId);
 		return product;
 	}
 
+	@Transactional
 	@Override
 	public List<Product> getAllProducts() {
 		List<Product> products = productDao.findAll();
