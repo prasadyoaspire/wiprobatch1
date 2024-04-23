@@ -10,6 +10,7 @@ import com.abc.productservice.entity.Product;
 import com.abc.productservice.exception.ResourceNotFoundException;
 import com.abc.productservice.repository.ProductRepository;
 
+
 @Service
 public class ProductServiceImpl implements ProductService {
 	
@@ -35,11 +36,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	
 	public List<Product> getAllProducts() {		
 		List<Product> products = productRepository.findAll();
 		return products;
 	}
-
+	
 	@Override
 	public Product updateProduct(Product product) {		
 		Optional<Product> optionalProduct = productRepository.findById(product.getProductId());		

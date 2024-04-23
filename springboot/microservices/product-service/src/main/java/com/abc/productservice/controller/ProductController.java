@@ -3,6 +3,7 @@ package com.abc.productservice.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,14 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+    private Environment environment;
+
+    @GetMapping("/data")
+    public String getProductData() {
+       return "data of PRODUCT-SERVICE, Running on port: "+environment.getProperty("local.server.port");
+    }
 
 	@GetMapping("/all")
 	public List<Product> fetchAllProducts() {

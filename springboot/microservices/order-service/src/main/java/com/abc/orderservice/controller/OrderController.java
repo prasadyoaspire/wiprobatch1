@@ -14,42 +14,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abc.orderservice.entity.Order;
+import com.abc.orderservice.model.OrderResponse;
 import com.abc.orderservice.payload.OrderItemPayload;
 import com.abc.orderservice.payload.OrderPayload;
 import com.abc.orderservice.service.OrderService;
-
+import com.abc.orderservice.service.ProductServiceConsumer;
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-	
+
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
+	private ProductServiceConsumer productServiceConsumer;
+
+	@GetMapping("/product-data")
+	public String getProductInfo() {
+		System.out.println(productServiceConsumer.getClass().getName()); // prints as a proxy class
+		return "Accessing from ORDER-SERVICE ==> " + productServiceConsumer.getProductData();
+	}
+
 	@PostMapping("/save")
 	public ResponseEntity<Order> placeOrder(@RequestBody OrderPayload orderPayload) {
-		
-		int customerId = orderPayload.getCustomerId();		
-		List<OrderItemPayload> productOrders = orderPayload.getOrderItems();		
-		
-		Order order = orderService.createOrder(customerId, productOrders);		
+
+		int customerId = orderPayload.getCustomerId();
+		List<OrderItemPayload> productOrders = orderPayload.getOrderItems();
+
+		Order order = orderService.createOrder(customerId, productOrders);
 		Order newOrder = orderService.saveOrder(order);
-		
-		return new ResponseEntity<>(newOrder,HttpStatus.CREATED);
+
+		return new ResponseEntity<>(newOrder, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Order> fetchOrderDetails(@PathVariable("id") int orderId) {
-		Order order = orderService.getOrderDetails(orderId);
-		return new ResponseEntity<>(order,HttpStatus.OK);
+	public ResponseEntity<OrderResponse> fetchOrderDetails(@PathVariable("id") int orderId) {
+		OrderResponse order = orderService.getOrderDetails(orderId);
+		return new ResponseEntity<>(order, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all")
-	public List<Order> fetchAllOrders() {
-		List<Order> orders = orderService.getAllOrders();
+	public List<OrderResponse> fetchAllOrders() {
+		List<OrderResponse> orders = orderService.getAllOrders();
 		return orders;
 	}
-	
+
 //	@GetMapping("/customer")
 //	public List<Order> fetchAllOrdersByCustomer(@RequestParam("customerId") int customerId) {
 //		List<Order> orders = orderService.getAllOrdersByCustomer(customerId);

@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.abc.orderservice.model.Product;
 
-@FeignClient(name="PRODUCT-SERVICE")
+
+@FeignClient(name = "PRODUCT-SERVICE",fallbackFactory = ProductServiceFallbackFactory.class)
+//@FeignClient(name = "book", contextId = "bookClient", fallbackFactory = BookClientFallbackFactory.class)
 public interface ProductServiceConsumer {
 
-	 @GetMapping("/product/{id}")
-     Product getProductById(@PathVariable("id") int productId);
-	 
-	 
+	@GetMapping("/product/{id}")
+	Product getProductById(@PathVariable("id") int productId);
+
+	@GetMapping("/product/data")
+	String getProductData();
 }

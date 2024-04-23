@@ -3,6 +3,7 @@ package com.abc.orderservice.service;
 import java.util.List;
 
 import com.abc.orderservice.entity.Order;
+import com.abc.orderservice.model.OrderResponse;
 import com.abc.orderservice.payload.OrderItemPayload;
 
 public interface OrderService {
@@ -11,9 +12,9 @@ public interface OrderService {
 
 	Order saveOrder(Order order);
 	
-	Order getOrderDetails(int orderId);
+	OrderResponse getOrderDetails(int orderId);
 	
-	List<Order> getAllOrders();
+	List<OrderResponse> getAllOrders();
 	
 //	List<Order> getAllOrdersByCustomer(int customerId);
 }

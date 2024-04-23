@@ -12,11 +12,11 @@ import com.abc.orderservice.entity.Order;
 import com.abc.orderservice.entity.OrderItem;
 import com.abc.orderservice.exception.ResourceNotFoundException;
 import com.abc.orderservice.model.Customer;
+import com.abc.orderservice.model.OrderItemResponse;
+import com.abc.orderservice.model.OrderResponse;
 import com.abc.orderservice.model.Product;
 import com.abc.orderservice.payload.OrderItemPayload;
 import com.abc.orderservice.repository.OrderRepository;
-
-
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -38,22 +38,89 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Order getOrderDetails(int orderId) {	
+	
+	public OrderResponse getOrderDetails(int orderId) {	
 		Optional<Order> optionalOrder = orderRepository.findById(orderId);
 		if(optionalOrder.isEmpty()) {
 			throw new ResourceNotFoundException("Order not found with id: "+orderId);
 		}		
 		Order order = optionalOrder.get();		
-		return order;
+		
+		OrderResponse orderResponse = new OrderResponse();
+		orderResponse.setOrderId(order.getOrderId());
+		orderResponse.setOrderDate(order.getOrderDate());
+		orderResponse.setOrderTotal(order.getOrderTotal());
+		orderResponse.setOrderStatus(order.getOrderStatus());
+		
+		int customerId= order.getCustomerId();		
+		Customer customer = customerService.getCustomerDetails(customerId);
+		
+		orderResponse.setCustomer(customer);
+		
+		List<OrderItemResponse> orderItems = new ArrayList<>();
+		
+		List<OrderItem> oitems = order.getOrderItems();
+		
+		for(OrderItem oi : oitems) {			
+			OrderItemResponse oitemResp = new OrderItemResponse();
+			oitemResp.setOrderItemId(oi.getOrderItemId());
+			oitemResp.setItemTotal(oi.getItemTotal());
+			oitemResp.setQuantity(oi.getQuantity());
+			
+			int pid = oi.getProductId();
+			Product product = productService.getProductById(pid);
+			oitemResp.setProduct(product);
+			
+			orderItems.add(oitemResp);
+		}
+		
+		orderResponse.setOrderItems(orderItems);
+			
+		return orderResponse;
 	}
 	
+	
+	
 	@Override
-	public List<Order> getAllOrders() {
-		List<Order> orderList = orderRepository.findAll();
-		return  orderList;
+	public List<OrderResponse> getAllOrders() {
+		List<Order> orderList = orderRepository.findAll();		
+		List<OrderResponse> orderResponseList = new ArrayList<>();
+		for(Order order: orderList) {
+			OrderResponse orderResponse = new OrderResponse();
+			orderResponse.setOrderId(order.getOrderId());
+			orderResponse.setOrderDate(order.getOrderDate());
+			orderResponse.setOrderTotal(order.getOrderTotal());
+			orderResponse.setOrderStatus(order.getOrderStatus());
+			
+			int customerId= order.getCustomerId();		
+			Customer customer = customerService.getCustomerDetails(customerId);
+			
+			orderResponse.setCustomer(customer);
+			
+			List<OrderItemResponse> orderItems = new ArrayList<>();
+			
+			List<OrderItem> oitems = order.getOrderItems();
+			
+			for(OrderItem oi : oitems) {			
+				OrderItemResponse oitemResp = new OrderItemResponse();
+				oitemResp.setOrderItemId(oi.getOrderItemId());
+				oitemResp.setItemTotal(oi.getItemTotal());
+				oitemResp.setQuantity(oi.getQuantity());
+				
+				int pid = oi.getProductId();
+				Product product = productService.getProductById(pid);
+				oitemResp.setProduct(product);
+				
+				orderItems.add(oitemResp);
+			}
+			
+			orderResponse.setOrderItems(orderItems);
+			orderResponseList.add(orderResponse);
+			
+		}
+		
+		return  orderResponseList;
 	}
-
-
 
 	@Override
 	public Order createOrder(int customerId, List<OrderItemPayload> selectedProducts) {
