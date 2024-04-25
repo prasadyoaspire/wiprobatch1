@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name="product_tbl")
@@ -21,11 +23,13 @@ public class Product {
 	@Column(name="product_name")
 	private String productName;
 	
+	@Positive(message = "productPrice allows only positive value")
 	@Column(name="product_price")
 	private double productPrice;
 	
 	private LocalDate mfd;
 	
+	@Pattern(regexp = "^[a-zA-Z]{4,12}$", message = "Invalid category. Only alphabets are allowed")
 	private String category;
 	
 	public int getProductId() {

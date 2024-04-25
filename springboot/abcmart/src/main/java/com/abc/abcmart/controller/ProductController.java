@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abc.abcmart.entity.Product;
 import com.abc.abcmart.service.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -37,7 +39,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/save")
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+	public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
 		productService.saveProduct(product);
 		ResponseEntity<Product> responseEntity = new ResponseEntity<>(product,HttpStatus.CREATED);
 		return responseEntity;
